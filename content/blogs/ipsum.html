@@ -59,10 +59,8 @@ approval_polllist &lt;- approval_polllist %&gt;%
          startdate = lubridate::mdy(startdate),
          enddate = lubridate::mdy(enddate),
          createddate = lubridate::mdy(createddate))</code></pre>
-<div id="create-a-plot" class="section level2">
-<h2>Create a plot</h2>
-<p>What I would like you to do is to calculate the average net approval rate (approve- disapprove) for each week since he got into office. I want you plot the net approval, along with its 95% confidence interval. There are various dates given for each poll, please use <code>enddate</code>, i.e., the date the poll ended.</p>
-<p>Also, please add an orange line at zero. Your plot should look like this:</p>
+<div id="now-we-will-create-a-plot-and-compare-the-confidence-intervals" class="section level2">
+<h2>Now, we will create a plot and compare the confidence intervals</h2>
 <p><img src="/Users/neelmalhotra/Desktop/finalwebsite/images/biden_approval_margin.png" width="100%" /></p>
 <pre class="r"><code>net_approval_margins&lt;-approval_polllist %&gt;% 
   filter(

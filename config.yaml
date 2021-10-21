@@ -100,15 +100,12 @@ params:
       - image: yieldcurvecover.png
         subtitle: An analysis of bond yield curves and inversions to predict recessions
         title: Can inverted yield curves predict recession?
-        url: blogs/jmdjmd
+        url: blogs/yield
       - image: lifecover.png
         subtitle: An analysis over time and across countries 
         title: Life expectancy analysis
         url: blogs/etiam
-      - image: lifecover.png
-        subtitle: An analysis over time and across countries 
-        title: Life expectancy analysis
-        url: blogs/etiam
+
   two:
     buttonText: Get Started
     enable: yes

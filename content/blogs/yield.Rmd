@@ -5,11 +5,12 @@ categories:
 date: "2017-10-31T22:26:09-05:00"
 description: Lorem Etiam Nullam
 draft: false
-image: lifemain.png
+image: yieldmain.jpg
 keywords: ""
-slug: etiam
-title: Life Expectancy across geographies over time 
+slug: yield
+title: Yield curves and recessions analysis 
 ---
+
 ```{r load-libraries, echo=FALSE}
 library(tidyverse)  # Load ggplot2, dplyr, and all the other tidyverse packages
 library(mosaic)
@@ -26,6 +27,7 @@ library(openintro)
 library(scales)
 library(lubridate) # to manipulate date variables
 ```
+
 Yield Curve inversion
 
 Every so often, we hear warnings from commentators on the "inverted yield curve" and its predictive power with respect to recessions. An explainer what a [inverted yield curve is can be found here](https://www.reuters.com/article/us-usa-economy-yieldcurve-explainer/explainer-what-is-an-inverted-yield-curve-idUSKBN1O50GA). If you'd rather listen to something, here is a great podcast from [NPR on yield curve indicators](https://www.podbean.com/media/share/dir-4zgj9-6aefd11)
@@ -271,4 +273,3 @@ Shaded areas correspond to recessions",
   NULL
 
 ```
-
