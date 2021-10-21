@@ -1,0 +1,361 @@
+---
+categories:
+- ""
+- ""
+date: "2017-10-31T22:26:09-05:00"
+description: Lorem Etiam Nullam
+draft: false
+image: lifemain.png
+keywords: ""
+slug: etiam
+title: Life Expectancy across geographies over time 
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──</code></pre>
+<pre><code>## ✓ ggplot2 3.3.5     ✓ purrr   0.3.4
+## ✓ tibble  3.1.4     ✓ dplyr   1.0.7
+## ✓ tidyr   1.1.3     ✓ stringr 1.4.0
+## ✓ readr   2.0.1     ✓ forcats 0.5.1</code></pre>
+<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+<pre><code>## Registered S3 method overwritten by &#39;mosaic&#39;:
+##   method                           from   
+##   fortify.SpatialPolygonsDataFrame ggplot2</code></pre>
+<pre><code>## 
+## The &#39;mosaic&#39; package masks several functions from core packages in order to add 
+## additional features.  The original behavior of these functions should not be affected by this.</code></pre>
+<pre><code>## 
+## Attaching package: &#39;mosaic&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:Matrix&#39;:
+## 
+##     mean</code></pre>
+<pre><code>## The following objects are masked from &#39;package:dplyr&#39;:
+## 
+##     count, do, tally</code></pre>
+<pre><code>## The following object is masked from &#39;package:purrr&#39;:
+## 
+##     cross</code></pre>
+<pre><code>## The following object is masked from &#39;package:ggplot2&#39;:
+## 
+##     stat</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     binom.test, cor, cor.test, cov, fivenum, IQR, median, prop.test,
+##     quantile, sd, t.test, var</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     max, mean, min, prod, range, sample, sum</code></pre>
+<pre><code>## 
+## Attaching package: &#39;ggthemes&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:mosaic&#39;:
+## 
+##     theme_map</code></pre>
+<pre><code>## Registered S3 method overwritten by &#39;GGally&#39;:
+##   method from   
+##   +.gg   ggplot2</code></pre>
+<pre><code>## here() starts at /Users/neelmalhotra/Desktop/finalwebsite</code></pre>
+<pre><code>## 
+## Attaching package: &#39;skimr&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:mosaic&#39;:
+## 
+##     n_missing</code></pre>
+<pre><code>## 
+## Attaching package: &#39;janitor&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     chisq.test, fisher.test</code></pre>
+<pre><code>## Loading required package: lubridate</code></pre>
+<pre><code>## 
+## Attaching package: &#39;lubridate&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     date, intersect, setdiff, union</code></pre>
+<pre><code>## Loading required package: PerformanceAnalytics</code></pre>
+<pre><code>## Loading required package: xts</code></pre>
+<pre><code>## Loading required package: zoo</code></pre>
+<pre><code>## 
+## Attaching package: &#39;zoo&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     as.Date, as.Date.numeric</code></pre>
+<pre><code>## 
+## Attaching package: &#39;xts&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:dplyr&#39;:
+## 
+##     first, last</code></pre>
+<pre><code>## 
+## Attaching package: &#39;PerformanceAnalytics&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:graphics&#39;:
+## 
+##     legend</code></pre>
+<pre><code>## Loading required package: quantmod</code></pre>
+<pre><code>## Loading required package: TTR</code></pre>
+<pre><code>## Registered S3 method overwritten by &#39;quantmod&#39;:
+##   method            from
+##   as.zoo.data.frame zoo</code></pre>
+<pre><code>## ══ Need to Learn tidyquant? ════════════════════════════════════════════════════
+## Business Science offers a 1-hour course - Learning Lab #9: Performance Analysis &amp; Portfolio Optimization with tidyquant!
+## &lt;/&gt; Learn more at: https://university.business-science.io/p/learning-labs-pro &lt;/&gt;</code></pre>
+<pre><code>## 
+## Attaching package: &#39;infer&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:mosaic&#39;:
+## 
+##     prop_test, t_test</code></pre>
+<pre><code>## Loading required package: airports</code></pre>
+<pre><code>## Loading required package: cherryblossom</code></pre>
+<pre><code>## Loading required package: usdata</code></pre>
+<pre><code>## 
+## Attaching package: &#39;openintro&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:mosaic&#39;:
+## 
+##     dotPlot</code></pre>
+<pre><code>## The following objects are masked from &#39;package:lattice&#39;:
+## 
+##     ethanol, lsegments</code></pre>
+<pre><code>## 
+## Attaching package: &#39;scales&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:mosaic&#39;:
+## 
+##     rescale</code></pre>
+<pre><code>## The following object is masked from &#39;package:purrr&#39;:
+## 
+##     discard</code></pre>
+<pre><code>## The following object is masked from &#39;package:readr&#39;:
+## 
+##     col_factor</code></pre>
+<p>Yield Curve inversion</p>
+<p>Every so often, we hear warnings from commentators on the “inverted yield curve” and its predictive power with respect to recessions. An explainer what a <a href="https://www.reuters.com/article/us-usa-economy-yieldcurve-explainer/explainer-what-is-an-inverted-yield-curve-idUSKBN1O50GA">inverted yield curve is can be found here</a>. If you’d rather listen to something, here is a great podcast from <a href="https://www.podbean.com/media/share/dir-4zgj9-6aefd11">NPR on yield curve indicators</a></p>
+<p>In addition, many articles and commentators think that, e.g., <a href="https://www.bloomberg.com/news/articles/2019-08-14/u-k-yield-curve-inverts-for-first-time-since-financial-crisis"><em>Yield curve inversion is viewed as a harbinger of recession</em></a>. One can always doubt whether inversions are truly a harbinger of recessions, and <a href="https://twitter.com/5_min_macro/status/1161627360946511873">use the attached parable on yield curve inversions</a>.</p>
+<p><img src="/Users/neelmalhotra/Desktop/finalwebsite/images/yield_curve_parable.jpg" width="100%" /></p>
+<p>In our case we will look at US data and use the <a href="https://fred.stlouisfed.org/">FRED database</a> to download historical yield curve rates, and plot the yield curves since 1999 to see when the yield curves flatten. To know more, an article that explains the <a href="https://fredblog.stlouisfed.org/2018/10/the-data-behind-the-fear-of-yield-curve-inversions/">yield curve is and its inversion can be found here</a>. At the end of this challenge you should produce this chart</p>
+<p><img src="/Users/neelmalhotra/Desktop/finalwebsite/images/yield_curve_challenge.png" width="100%" /></p>
+<p>First, we will load the yield curve data file that contains data on the yield curve since 1960-01-01:</p>
+<pre class="r"><code>yield_curve &lt;- read_csv(here::here(&quot;data&quot;, &quot;yield_curve.csv&quot;))</code></pre>
+<pre><code>## Rows: 6884 Columns: 5</code></pre>
+<pre><code>## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr  (3): series_id, maturity, duration
+## dbl  (1): value
+## date (1): date</code></pre>
+<pre><code>## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>glimpse(yield_curve)</code></pre>
+<pre><code>## Rows: 6,884
+## Columns: 5
+## $ date      &lt;date&gt; 1960-01-01, 1960-02-01, 1960-03-01, 1960-04-01, 1960-05-01,…
+## $ series_id &lt;chr&gt; &quot;TB3MS&quot;, &quot;TB3MS&quot;, &quot;TB3MS&quot;, &quot;TB3MS&quot;, &quot;TB3MS&quot;, &quot;TB3MS&quot;, &quot;TB3MS…
+## $ value     &lt;dbl&gt; 4.35, 3.96, 3.31, 3.23, 3.29, 2.46, 2.30, 2.30, 2.48, 2.30, …
+## $ maturity  &lt;chr&gt; &quot;3m&quot;, &quot;3m&quot;, &quot;3m&quot;, &quot;3m&quot;, &quot;3m&quot;, &quot;3m&quot;, &quot;3m&quot;, &quot;3m&quot;, &quot;3m&quot;, &quot;3m&quot;, …
+## $ duration  &lt;chr&gt; &quot;3-Month Treasury Bill&quot;, &quot;3-Month Treasury Bill&quot;, &quot;3-Month T…</code></pre>
+<p>Our dataframe <code>yield_curve</code> has five columns (variables):</p>
+<ul>
+<li><code>date</code>: already a date object</li>
+<li><code>series_id</code>: the FRED database ticker symbol</li>
+<li><code>value</code>: the actual yield on that date</li>
+<li><code>maturity</code>: a short hand for the maturity of the bond</li>
+<li><code>duration</code>: the duration, written out in all its glory!</li>
+</ul>
+<div id="plotting-the-yield-curve" class="section level2">
+<h2>Plotting the yield curve</h2>
+<div id="yields-on-us-rates-by-duration-since-1960" class="section level3">
+<h3>Yields on US rates by duration since 1960</h3>
+<p><img src="/Users/neelmalhotra/Desktop/finalwebsite/images/yield_curve1.png" width="100%" /></p>
+<pre class="r"><code>yield_curve %&gt;% 
+  group_by(maturity) %&gt;% 
+  ggplot(aes(x = date,
+             y = value,
+             color = maturity))+
+  # We use this code to order the graphs based on maturity; We also specify that we want 2 columns 
+    facet_wrap(~ factor(duration, 
+                        levels = c(&quot;3-Month Treasury Bill&quot;,
+                                   &quot;6-Month Treasury Bill&quot;,
+                                   &quot;1-Year Treasury Rate&quot;,
+                                   &quot;2-Year Treasury Rate&quot;,
+                                   &quot;3-Year Treasury Rate&quot;,
+                                   &quot;5-Year Treasury Rate&quot;,
+                                   &quot;7-Year Treasury Rate&quot;,
+                                   &quot;10-Year Treasury Rate&quot;,
+                                   &quot;20-Year Treasury Rate&quot;,
+                                   &quot;30-Year Treasury Rate&quot;)), 
+               ncol = 2)+
+    geom_line()+
+    theme_bw()+
+    theme(legend.position = &quot;none&quot;)+
+    labs(title=&quot;Yields on U.S. Tresury Rates since 1960&quot;, 
+       y = &quot;%&quot;,
+       x = &quot;&quot;,
+       caption = &quot;Source: St. Louis Federal reserve Economic Database (FRED)&quot;
+       ) +
+  NULL</code></pre>
+<p><img src="/blogs/yield_files/figure-html/unnamed-chunk-1-1.png" width="1440" /></p>
+</div>
+<div id="monthly-yields-on-us-rates-by-duration-since-1999-on-a-year-by-year-basis" class="section level3">
+<h3>Monthly yields on US rates by duration since 1999 on a year-by-year basis</h3>
+<p><img src="/Users/neelmalhotra/Desktop/finalwebsite/images/yield_curve2.png" width="100%" /></p>
+<pre class="r"><code>yield_curve %&gt;%
+  #We create 2 new variables that take the month and year from the date variable respectively
+  mutate(month = month(date),
+         year = year(date)) %&gt;%
+  # We filter for date only after 1999
+  filter(year &gt;= 1999) %&gt;%
+  # We use levels to order the x-axis based on maturity
+  ggplot(aes(x = factor(maturity, 
+                        level = c(&quot;3m&quot;, 
+                                  &quot;6m&quot;, 
+                                  &quot;1y&quot;, 
+                                  &quot;2y&quot;, 
+                                  &quot;3y&quot;,
+                                  &quot;5y&quot;,
+                                  &quot;7y&quot;,
+                                  &quot;10y&quot;, 
+                                  &quot;20y&quot;, 
+                                  &quot;30y&quot;)),
+             y = value))+
+    facet_wrap(~ year, 
+               ncol = 4)+
+  # We use as.factor to color each graph based on the years
+    geom_line(aes(group = month,
+                  color = as.factor(year)))+
+    theme_bw()+
+    theme(legend.position = &quot;none&quot;)+
+    labs(title=&quot;US Yield Curve&quot;, 
+       y = &quot;Yield (%)&quot;,
+       x = &quot;Maturity&quot;,
+       caption = &quot;Source: St. Louis Federal reserve Economic Database (FRED)&quot;
+       ) +
+  NULL</code></pre>
+<p><img src="/blogs/yield_files/figure-html/unnamed-chunk-2-1.png" width="1440" /></p>
+</div>
+<div id="month-and-10-year-yields-since-1999" class="section level3">
+<h3>3-month and 10-year yields since 1999</h3>
+<p><img src="/Users/neelmalhotra/Desktop/finalwebsite/images/yield_curve3.png" width="100%" /></p>
+<pre class="r"><code>yield_curve %&gt;%
+  mutate(year = year(date)) %&gt;%
+  filter(year &gt;= 1999) %&gt;%
+  #We filter for bonds that only have a 3-month and 10-year maturity
+  filter( maturity == &quot;10y&quot; | maturity == &quot;3m&quot;) %&gt;% 
+  group_by(maturity) %&gt;% 
+  ggplot(aes(x = date,
+             y = value,
+             color = duration))+
+    geom_line()+
+    theme_bw()+
+  #We use this code to swap the colors of the two lines to match the original graph
+    scale_color_hue(direction = -1, h.start=90)+
+    labs(title=&quot;Yields on 3-Month and 10-Year Tresury rates since 1999&quot;, 
+         x = &quot;&quot;,
+         y = &quot;%&quot;,
+       caption = &quot;Source: St. Louis Federal reserve Economic Database (FRED)&quot;,
+       color = &quot;&quot;) +
+  NULL</code></pre>
+<p><img src="/blogs/yield_files/figure-html/unnamed-chunk-3-1.png" width="1440" /></p>
+<p>According to <a href="https://en.wikipedia.org/wiki/List_of_recessions_in_the_United_States">Wikipedia’s list of recession in the United States</a>, since 1999 there have been two recession in the US: between Mar 2001–Nov 2001 and between Dec 2007–June 2009. Does the yield curve seem to flatten before these recessions? Can a yield curve flattening really mean a recession is coming in the US? Since 1999, when was the short-term (3 months) yield more than longer term (10 years) debt?</p>
+<blockquote>
+<p>Yes, the yield curve seems to flatten since in both cases, the 10-year and the 3-month yield curves cross each other, suggesting the spread is equal to 0. We can see this happening in three places: around 2001 (Dot Com Bubble), around 2008 (The MBS Financial Crisis), and most recently around 2020 (The COVID-19 Pandemic). This can be explained by the fact that in anticipation of a recession and lower interest rate , investors buy long-term bonds and sell short-term ones, which affects their price and in turn, their yield. The evidence in the graph would suggest that the invesrion of the yield curve is a good predictior of recessions.</p>
+</blockquote>
+<p>Besides calculating the spread (10year - 3months), there are a few things we need to do to produce our final plot:</p>
+<ol style="list-style-type: decimal">
+<li>Setup data for US recessions</li>
+<li>Superimpose recessions as the grey areas in our plot</li>
+<li>Plot the spread between 10 years and 3 months as a blue/red ribbon, based on whether the spread is positive (blue) or negative (red)</li>
+</ol>
+<p>First, the code below creates a data frame with all US recessions since 1946:</p>
+<pre class="r"><code># get US recession dates after 1946 from Wikipedia 
+# https://en.wikipedia.org/wiki/List_of_recessions_in_the_United_States
+
+recessions &lt;- tibble(
+  from = c(&quot;1948-11-01&quot;, &quot;1953-07-01&quot;, &quot;1957-08-01&quot;, &quot;1960-04-01&quot;, &quot;1969-12-01&quot;, &quot;1973-11-01&quot;, &quot;1980-01-01&quot;,&quot;1981-07-01&quot;, &quot;1990-07-01&quot;, &quot;2001-03-01&quot;, &quot;2007-12-01&quot;,&quot;2020-02-01&quot;),  
+  to = c(&quot;1949-10-01&quot;, &quot;1954-05-01&quot;, &quot;1958-04-01&quot;, &quot;1961-02-01&quot;, &quot;1970-11-01&quot;, &quot;1975-03-01&quot;, &quot;1980-07-01&quot;, &quot;1982-11-01&quot;, &quot;1991-03-01&quot;, &quot;2001-11-01&quot;, &quot;2009-06-01&quot;, &quot;2020-04-30&quot;) 
+  )  %&gt;% 
+  mutate(From = ymd(from), 
+         To=ymd(to),
+         duration_days = To-From)
+
+
+recessions</code></pre>
+<pre><code>## # A tibble: 12 × 5
+##    from       to         From       To         duration_days
+##    &lt;chr&gt;      &lt;chr&gt;      &lt;date&gt;     &lt;date&gt;     &lt;drtn&gt;       
+##  1 1948-11-01 1949-10-01 1948-11-01 1949-10-01 334 days     
+##  2 1953-07-01 1954-05-01 1953-07-01 1954-05-01 304 days     
+##  3 1957-08-01 1958-04-01 1957-08-01 1958-04-01 243 days     
+##  4 1960-04-01 1961-02-01 1960-04-01 1961-02-01 306 days     
+##  5 1969-12-01 1970-11-01 1969-12-01 1970-11-01 335 days     
+##  6 1973-11-01 1975-03-01 1973-11-01 1975-03-01 485 days     
+##  7 1980-01-01 1980-07-01 1980-01-01 1980-07-01 182 days     
+##  8 1981-07-01 1982-11-01 1981-07-01 1982-11-01 488 days     
+##  9 1990-07-01 1991-03-01 1990-07-01 1991-03-01 243 days     
+## 10 2001-03-01 2001-11-01 2001-03-01 2001-11-01 245 days     
+## 11 2007-12-01 2009-06-01 2007-12-01 2009-06-01 548 days     
+## 12 2020-02-01 2020-04-30 2020-02-01 2020-04-30  89 days</code></pre>
+<pre class="r"><code>#line above = putting in height and width for proper rendering ratio
+
+#filtering the values of 3 month bills and 10 year bonds &amp; assigning them to yields to plot later
+yields &lt;- yield_curve %&gt;%
+  filter(maturity == &quot;3m&quot; | maturity == &quot;10y&quot;) %&gt;% 
+  pivot_wider(
+               names_from = c(&quot;duration&quot;,&quot;maturity&quot;),
+               values_from = &quot;value&quot;)
+
+threemonth_yield_curve &lt;- yield_curve %&gt;% 
+  filter(maturity %in% c(&quot;3m&quot;)) %&gt;%
+  pivot_wider(names_from=&quot;maturity&quot;,values_from=&quot;value&quot;) %&gt;% 
+  rename(three_month=&quot;3m&quot;)
+
+tenyear_yield_curve &lt;- yield_curve %&gt;% 
+  filter(maturity %in% c(&quot;10y&quot;)) %&gt;%
+  pivot_wider(names_from=&quot;maturity&quot;,values_from=&quot;value&quot;) %&gt;% 
+  rename(ten_year=&quot;10y&quot;)
+
+yield_for_plot &lt;- yield_curve_10y_3m &lt;- left_join(threemonth_yield_curve,tenyear_yield_curve,by=&quot;date&quot;) %&gt;% 
+  mutate(spread=ten_year-three_month) %&gt;% 
+  rename(dates2=date)
+
+
+yield_for_plot %&gt;% 
+  
+  #Plotting the dates
+  ggplot(aes(x=dates2)) +
+  
+  #Plotting the recession grey boxes
+  geom_rect(data=recessions,aes(xmin=From,xmax=To,ymin=-Inf,ymax=Inf),fill=&#39;gray&#39;,inherit.aes=FALSE,alpha=0.5)+
+
+  #Plotting the graph now
+  scale_x_date(date_breaks=&quot;2 years&quot;,labels=date_format(&quot;%Y&quot;),limits=as.Date(c(&#39;1959-01-01&#39;,&#39;2021-08-01&#39;)))+
+  geom_line(aes(y=spread),size=0.25)+
+  geom_hline(yintercept=0,color=&quot;black&quot;) + 
+  
+  #plotting the thing under the graph
+  geom_rug(data=subset(yield_for_plot,spread&gt;0),color=&quot;#a5c7e9&quot;,sides=&quot;b&quot;,alpha=0.75)+
+  geom_rug(data=subset(yield_for_plot,spread&lt;=0),color=&quot;#f4b2b6&quot;,sides=&quot;b&quot;,alpha=0.75)+
+  
+  #plotting the colours
+  geom_ribbon(aes(ymin=0,ymax=pmax(spread,0)),fill=&quot;#a5c7e9&quot;,alpha=0.6)+
+  geom_ribbon(aes(ymin=pmin(0,spread),ymax=0),fill=&quot;#f4b2b6&quot;,alpha=0.6)+
+  
+  
+  #modifying the theme and title
+  theme_bw()+
+   labs(
+    title = &quot;Yield Curve Inversion: 10-year minus 3-month U.S. Treasury rates&quot;,
+    caption = &quot;Source: FRED, Federal Reserve Bank of St. Louis&quot;,
+    subtitle = &quot;Difference in % points, monthly averages.
+Shaded areas correspond to recessions&quot;,
+    x = &quot;&quot;, 
+    y = &quot;Difference (10 year-3 month) yield in %&quot;)+
+   theme(
+    plot.title = element_text(size = 15),
+    plot.subtitle = element_text(size=10, face = &quot;italic&quot;),
+    axis.title.y=element_text(size=15),
+    plot.caption = element_text(size = 10),
+    legend.position = &quot;none&quot; ) + 
+  NULL</code></pre>
+<pre><code>## Warning: Removed 3 rows containing missing values (geom_rect).</code></pre>
+<p><img src="/blogs/yield_files/figure-html/unnamed-chunk-4-1.png" width="960" /></p>
+</div>
+</div>

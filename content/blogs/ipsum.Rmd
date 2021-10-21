@@ -11,64 +11,96 @@ slug: ipsum
 title: Biden Approval Ratings
 ---
 
-# Task 1: About me *(Click for dropdown)*
+# Biden's Approval Margins
 
-Hey Guys, I am Akshat. You could pronouce it as "Uck-Shuh" or "j-aim-es
-bo-nd"
 
-![](D:/Akshat/Study/LBS_MAM/Pre%20Courses/R/am01-master/pre_programme_assignment/pre_programme_assignment/bb.jfif)
+```{r load-libraries, include=FALSE}
+library(tidyverse)  # Load ggplot2, dplyr, and all the other tidyverse packages
+library(mosaic)
+library(ggthemes)
+library(lubridate)
+library(here)
+library(skimr)
+library(janitor)
+library(httr)
+library(readxl)
+library(vroom)
+library(infer)
+library(tidyquant)
+library(rvest)
+library(ggtext)
+```
 
-## My undergraduate life
 
-An undergraduate degree in computer science introduced me to programming
-and data-oriented courses. So now am going to make the toughest choice
-of my life - Get a consulting/Tech job after the MAM **or open my own
-bar and spend the rest of my life serving drinks for the greater good of
-mankind.**
+```{r, cache=TRUE}
+# Import approval polls data directly off fivethirtyeight website
+approval_polllist <- read_csv('https://projects.fivethirtyeight.com/biden-approval-data/approval_polllist.csv') 
 
-Being brought up around a family business gave me a business outlook.
-Being exposed to both these elements at a young age made me realize the
-importance of having the right set of analytical as well as management
-skills to succeed. The Masters in Analytics and Management programme
-will help me learn how to utilize both these skills to my advantage
-*(but even after the rigorous 1 year if I do not manage to learn the
-balance - I'll just use the LBS brand name, expensive LBS merchandise
-and secure a high paying job).*
+glimpse(approval_polllist)
 
-During my second year at undergraduate engineering college, I founded my
-own start up with three other friends, we made some money, it was not
-enough so I took up a job at Barclays where I still did not make enough
-money. I also had a team research project for which we created an award
-winning brain controlled wheelchair. I swear I do not have a god complex
-but I would definitely like to move things with my mind
+# Use `lubridate` to fix dates, as they are given as characters.
 
-![](D:/Akshat/Study/LBS_MAM/Pre%20Courses/R/am01-master/pre_programme_assignment/pre_programme_assignment/unagi.jfif)
+approval_polllist <- approval_polllist %>% 
+  mutate(modeldate = lubridate::mdy(modeldate),
+         startdate = lubridate::mdy(startdate),
+         enddate = lubridate::mdy(enddate),
+         createddate = lubridate::mdy(createddate))
+```
 
-## Me professionally
+## Create a plot
 
-At Barclays I joined the Insurance team and started developing software
-using various technologies for: 1. Database manipulation 2. Test
-automation 3. User experience 4. Digital accessibility for the disabled.
-5. We used Agile methodologies, primarily the scrum framework and sprint
-cycles + I very well understand how the chronology of my biography is
-not off track but I really wanted to use my experience at Barclays to
-seem a little professional.
+What I would like you to do is to calculate the average net approval rate (approve- disapprove) for each week since he got into office. I want you plot the net approval, along with its 95% confidence interval. There are various dates given for each poll, please use `enddate`, i.e., the date the poll ended.
 
-## My goals in cool words.
+Also, please add an orange line at zero. Your plot should look like this:
 
-In the short term I want to learn how to fully utilize the potential of
-data in order to drive a successful business or product. Professionally,
-I would like to holistically understand how businesses work and develop
-an expertise in leveraging data to launch innovative products. I want to
-work in technology consulting with top firms such as Bain & Company,
-McKinsey or BCG. My skill set would include understanding client
-requirements, performing quantitative and qualitative analysis,
-presenting a concrete technological solution and devising implementation
-strategies. In the long term I would like to have my own bar, learn how
-to fly and spend all the money I made using the LBS brand name.
+```{r trump_margins, echo=FALSE, out.width="100%"}
+knitr::include_graphics(here::here("images", "biden_approval_margin.png"), error = FALSE)
+```
 
-Cheers and have great day guys, if you really spent your time reading
-the whole biography - come home & I will compensate you with a beer :)
+```{r}
 
-\#Contact Me Here's my linkedIn if you want to know the more serious
-side of me [link](https://www.linkedin.com/in/akshatkacheria/)
+net_approval_margins<-approval_polllist %>% 
+  filter(
+    !is.na(enddate),
+    subgroup=="All polls"
+    ) %>%
+  mutate(
+    week=isoweek(enddate),
+    net_approval_rate=approve-disapprove
+    ) %>%
+  group_by(week) %>% 
+  summarise(
+    mean_rate=mean(net_approval_rate, na.rm=TRUE),
+    sd_rate=sd(net_approval_rate, na.rm=TRUE),
+    number=n(),
+    se_rate=sd_rate/sqrt(number),
+    lower=mean_rate-qt(0.975,number-1)*se_rate,
+    upper=mean_rate+qt(0.975,number-1)*se_rate
+    )
+
+net_approval_margins
+```
+
+
+
+```{r}
+net_approval_margins  %>% 
+  ggplot(aes(x=week, y=mean_rate)) + 
+  geom_point(color="red") + 
+  geom_line(color="red")+
+  geom_ribbon(aes(ymin=lower, ymax=upper),color="orange", fill="grey", alpha=0.4) +
+  theme_bw() +
+  geom_smooth(se=FALSE) + 
+  geom_hline(yintercept=0, linetype="solid",color = "orange", size=1) + 
+  labs(caption = "Source: wahlrecht.de,
+  Last updated 5 Sep 2021", title="Approval Margins for Joe Biden", subtitle = "Weekly average of polls", x = "Week of the year", y = "Average Approval Margin (approve-disapprove)") + 
+  NULL
+```
+
+
+
+## Compare Confidence Intervals
+
+Compare the confidence intervals for `week 3` and `week 38`. Can you explain what's going on? One paragraph would be enough.
+
+Net Approval ratings are positive until around week 33 (when the 95% confidence interval now contains 0)
