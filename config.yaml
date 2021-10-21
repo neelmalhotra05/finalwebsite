@@ -97,15 +97,18 @@ params:
         subtitle: An analysis of Approvals during his first year in office
         title: Biden Approval ratings
         url: blogs/ipsum
-      - image: pic06.jpg
+      - image: yieldcurvecover.png
         subtitle: An analysis of bond yield curves and inversions to predict recessions
         title: Can inverted yield curves predict recession?
         url: blogs/jmdjmd
-      - image: pic05.jpg
+      - image: lifecover.png
         subtitle: An analysis over time and across countries 
-        title: GDP components analysis
-        url: blogs/jmd
-
+        title: Life expectancy analysis
+        url: blogs/etiam
+      - image: lifecover.png
+        subtitle: An analysis over time and across countries 
+        title: Life expectancy analysis
+        url: blogs/etiam
   two:
     buttonText: Get Started
     enable: yes
